@@ -1,5 +1,5 @@
 wall = 2;
-thin_wall = 1.4;
+thin_wall = 2;
 cell_diam = 20 + 0.5;
 cell_thickness = 3.2 + 0.5;
 rail_thickness = 5;
@@ -10,7 +10,7 @@ spacing = 0.75;
 first_snap_width = cell_diam/2;
 second_snap_width = cell_diam*3/4 - 2;
 snap_spacing = 1;
-pin_diam = 1.2;
+pin_diam = 1.7; // 1.2;
 
 module batteryclip() {
     cube([width, cell_diam+2*wall,wall]);
@@ -35,6 +35,6 @@ difference() {
     batteryclip();
     translate([width-cell_diam/2,wall+cell_diam/2+3,0]) cylinder(d=pin_diam, h=wall, $fn=16);
     translate([width-cell_diam/2,wall+cell_diam/2-3,0]) cylinder(d=pin_diam, h=wall, $fn=16);
-    translate([width-cell_diam/2,wall+cell_diam/2-3,wall]) rotate([-90,0,0]) cylinder(d=pin_diam*2/3, h=6, $fn=16);
+    translate([width-cell_diam/2,wall+cell_diam/2-3,wall]) rotate([-90,0,0]) cylinder(d=pin_diam/2, h=6, $fn=16);
     translate([width-wall-3,5,0]) cylinder(d=pin_diam, h=2*wall+cell_thickness, $fn=16);
 }
