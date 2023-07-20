@@ -35,6 +35,6 @@ difference() {
     batteryclip();
     translate([width-cell_diam/2,wall+cell_diam/2+3,0]) cylinder(d=pin_diam, h=wall, $fn=16);
     translate([width-cell_diam/2,wall+cell_diam/2-3,0]) cylinder(d=pin_diam, h=wall, $fn=16);
-    translate([width-cell_diam/2,wall+cell_diam/2-3,wall]) rotate([-90,0,0]) cylinder(d=pin_diam/2, h=6, $fn=16);
-    translate([width-wall-3,5,0]) cylinder(d=pin_diam, h=2*wall+cell_thickness, $fn=16);
+    translate([width-cell_diam/2,wall+cell_diam/2-3,wall]) rotate([-90,0,0]) cylinder(d=pin_diam*2/3, h=6, $fn=16);
+    translate([width-wall-4.5,5,0]) cylinder(d=pin_diam, h=2*wall+cell_thickness, $fn=16);
 }
