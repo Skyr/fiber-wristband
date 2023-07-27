@@ -14,24 +14,29 @@ snap_spacing = 1;
 pin_diam = 1.7; // 1.2;
 
 module batteryclip() {
-    cube([width, cell_diam+2*wall,wall]);
-    translate([0,cell_diam+wall,wall]) cube([width, wall, cell_thickness]);
-    translate([0,0,cell_thickness+wall]) cube([width, wall+rail_thickness, wall]);
-    translate([0, cell_diam+wall-rail_thickness, cell_thickness+wall]) cube([width, wall+rail_thickness, wall]);
-    translate([0,0,wall]) difference() {
+    difference() {
         union() {
-            translate([width-wall-cell_diam/2,0,0]) cube([wall+cell_diam/2,wall+cell_diam,cell_thickness]);
-            translate([width-wall-cell_diam/2-second_snap_width,wall-thin_wall,spacing]) cube([second_snap_width,wall+snap_thickness,cell_thickness-2*spacing]);
-            translate([0,wall-thin_wall,spacing]) cube([first_snap_width,wall+snap_thickness, cell_thickness-2*spacing]);
-            translate([first_snap_width,0,0]) cube([width-wall-cell_diam/2-second_snap_width-first_snap_width-snap_spacing,wall,cell_thickness]);
-            translate([width,0,-wall]) cube([width_extra,cell_diam+2*wall,cell_thickness+2*wall]);
+            cube([width, cell_diam+2*wall,wall]);
+            translate([0,cell_diam+wall,wall]) cube([width, wall, cell_thickness]);
+            translate([0,0,cell_thickness+wall]) cube([width, wall+rail_thickness, wall]);
+            translate([0, cell_diam+wall-rail_thickness, cell_thickness+wall]) cube([width, wall+rail_thickness, wall]);
+            translate([0,0,wall]) {
+                translate([width-wall-cell_diam/2,0,0]) cube([wall+cell_diam/2,wall+cell_diam,cell_thickness]);
+                translate([width-wall-cell_diam/2-second_snap_width,wall-thin_wall,spacing]) cube([second_snap_width,wall+snap_thickness,cell_thickness-2*spacing]);
+                translate([0,wall-thin_wall,spacing]) cube([first_snap_width,wall+snap_thickness, cell_thickness-2*spacing]);
+                translate([first_snap_width,0,0]) cube([width-wall-cell_diam/2-second_snap_width-first_snap_width-snap_spacing,wall,cell_thickness]);
+                translate([width,0,-wall]) cube([width_extra,cell_diam+2*wall,cell_thickness+2*wall]);
+            }
         }
-        //translate([0,wall+rail_thickness,0]) cube([width,cell_diam-2*rail_thickness,cell_thickness]);
-        translate([0,wall+rail_thickness,0]) cube([width-2*wall,cell_diam-2*rail_thickness,cell_thickness]);
-        translate([width-wall-cell_diam/2,wall+cell_diam/2,0]) cylinder(h=cell_thickness, d=cell_diam, $fn=32);
-        translate([wall+cell_diam/2,wall+cell_diam/2,0]) cylinder(h=cell_thickness, d=cell_diam, $fn=32);
+        translate([0,0,wall]) {
+            //translate([0,wall+rail_thickness,0]) cube([width,cell_diam-2*rail_thickness,cell_thickness]);
+            translate([0,wall+rail_thickness,0]) cube([width-2*wall,cell_diam-2*rail_thickness,cell_thickness]);
+            translate([width-wall-cell_diam/2,wall+cell_diam/2,0]) cylinder(h=cell_thickness, d=cell_diam, $fn=32);
+            translate([wall+cell_diam/2,wall+cell_diam/2,0]) cylinder(h=cell_thickness, d=cell_diam, $fn=32);
+        }
         // Openings for clip
-        //translate([0,0,-1]) rotate([0,90,0]) cylinder(d=1, h=width+width_extra, $fn=32);
+        translate([0,0,1]) rotate([0,90,0]) cylinder(d=1, h=width+width_extra, $fn=32);
+        translate([0,cell_diam+2*wall,1]) rotate([0,90,0]) cylinder(d=1, h=width+width_extra, $fn=32);
     }
 }
 
@@ -46,4 +51,23 @@ difference() {
     translate([width-wall-1,wall+cell_diam/2-1.3,0]) cylinder(d=pin_diam, h=2*wall+cell_thickness, $fn=16);
     // Shortened version
     cube([first_snap_width,cell_diam+2*wall,cell_thickness+2*wall]);
+}
+
+tolerance = 0.3;
+lid_z = 7;
+translate([first_snap_width,-wall-tolerance,-wall-lid_z]) {
+    difference() {
+        cube([width+width_extra-first_snap_width, cell_diam+4*wall+2*tolerance, wall + 2 + lid_z]);
+        translate([0,wall,wall]) cube([width+width_extra-first_snap_width, cell_diam+2*wall+2*tolerance, wall + 2 + lid_z]);
+    }
+    difference() {
+        union() {
+            translate([width+width_extra-first_snap_width-wall,0,wall]) cube([wall, cell_diam+4*wall,lid_z-tolerance]);
+            translate([width-wall-first_snap_width-3-5,0,wall]) cube([wall, cell_diam+4*wall,lid_z-tolerance]);
+            translate([0,0,wall]) cube([wall, cell_diam+4*wall,lid_z-tolerance]);
+        }
+        translate([0,(cell_diam+4*wall)/2,wall+3.1]) rotate([0,90,0]) cylinder(d=6.1, h=width+10, $fn=32);
+    }
+    translate([0,wall,lid_z+wall+1]) rotate([0,90,0]) cylinder(d=0.8, h=width+width_extra-first_snap_width, $fn=32);
+    translate([0,cell_diam+3*wall+2*tolerance,lid_z+wall+1]) rotate([0,90,0]) cylinder(d=0.8, h=width+width_extra-first_snap_width, $fn=32);
 }
