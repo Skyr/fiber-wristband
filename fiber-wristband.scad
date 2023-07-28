@@ -13,6 +13,9 @@ second_snap_width = cell_diam*3/4 - 2;
 snap_spacing = 1;
 pin_diam = 1.7; // 1.2;
 
+clip_positive_d = 0.8;
+clip_negative_d = 1.3;
+
 slide_overlap = 5;
 overlap_len = 15;
 
@@ -38,15 +41,15 @@ module batteryclip() {
             translate([wall+cell_diam/2,wall+cell_diam/2,0]) cylinder(h=cell_thickness, d=cell_diam, $fn=32);
         }
         // Openings for clip
-        translate([0,0,1]) rotate([0,90,0]) cylinder(d=1.3, h=width+width_extra, $fn=32);
-        translate([0,cell_diam+2*wall,1]) rotate([0,90,0]) cylinder(d=1.3, h=width+width_extra, $fn=32);
+        translate([0,0,1]) rotate([0,90,0]) cylinder(d=clip_negative_d, h=width+width_extra, $fn=32);
+        translate([0,cell_diam+2*wall,1]) rotate([0,90,0]) cylinder(d=clip_negative_d, h=width+width_extra, $fn=32);
         // Overlapping opening
         translate([width+width_extra-overlap_len-slide_overlap,cell_diam+2*wall-1,-1]) cube([overlap_len+1,1,2]);
     }
 }
 
 
-!translate([slide_overlap,0,0]) difference() {
+translate([slide_overlap,0,0]) difference() {
     batteryclip();
     // Hole for negative
     translate([width-wall-3,wall+cell_diam/2+1.3,0]) cylinder(d=pin_diam, h=wall, $fn=16);
@@ -74,10 +77,10 @@ translate([first_snap_width,-wall-tolerance,-wall-lid_z]) {
         }
         translate([0,(cell_diam+4*wall)/2,wall+3.1]) rotate([0,90,0]) cylinder(d=fiber_diam, h=width+10, $fn=32);
     }
-    translate([0,wall,lid_z+wall+1]) rotate([0,90,0]) cylinder(d=0.8, h=width+width_extra-first_snap_width, $fn=32);
+    translate([0,wall,lid_z+wall+1]) rotate([0,90,0]) cylinder(d=clip_positive_d, h=width+width_extra-first_snap_width, $fn=32);
     // ...with overlapping opening
     translate([0,cell_diam+3*wall+2*tolerance,lid_z+wall+1]) rotate([0,90,0]) difference() {
         cylinder(d=0.8, h=width+width_extra-first_snap_width, $fn=32);
-        translate([0,0,slide_overlap-1]) cylinder(d=0.8, h=width+width_extra-first_snap_width-overlap_len-3.7, $fn=32);
+        translate([0,0,slide_overlap-1]) cylinder(d=clip_positive_d, h=width+width_extra-first_snap_width-overlap_len-3.7, $fn=32);
     }
 }
