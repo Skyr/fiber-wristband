@@ -1,5 +1,5 @@
-wall = 2;
-thin_wall = 2;
+wall = 1.5;
+thin_wall = 1.5;
 cell_diam = 20 + 0.5;
 cell_thickness = 3.2 + 0.5;
 rail_thickness = 5;
@@ -38,15 +38,15 @@ module batteryclip() {
             translate([wall+cell_diam/2,wall+cell_diam/2,0]) cylinder(h=cell_thickness, d=cell_diam, $fn=32);
         }
         // Openings for clip
-        translate([0,0,1]) rotate([0,90,0]) cylinder(d=1, h=width+width_extra, $fn=32);
-        translate([0,cell_diam+2*wall,1]) rotate([0,90,0]) cylinder(d=1, h=width+width_extra, $fn=32);
+        translate([0,0,1]) rotate([0,90,0]) cylinder(d=1.3, h=width+width_extra, $fn=32);
+        translate([0,cell_diam+2*wall,1]) rotate([0,90,0]) cylinder(d=1.3, h=width+width_extra, $fn=32);
         // Overlapping opening
         translate([width+width_extra-overlap_len-slide_overlap,cell_diam+2*wall-1,-1]) cube([overlap_len+1,1,2]);
     }
 }
 
 
-translate([slide_overlap,0,0]) difference() {
+!translate([slide_overlap,0,0]) difference() {
     batteryclip();
     // Hole for negative
     translate([width-wall-3,wall+cell_diam/2+1.3,0]) cylinder(d=pin_diam, h=wall, $fn=16);
