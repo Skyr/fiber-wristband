@@ -74,3 +74,14 @@ Ehre, dem Ehre gebührt: Zündfunken waren
 [dieses Modell](https://cults3d.com/en/3d-model/home/led-light-torch) bezüglich "LED-Licht ohne Schalter"
 und die Idee von [Geek Mom Projects](https://mastodon.social/@geekmomprojects/110705560695582386),
 das mit einem Lichtwellenleiter zu erheiraten.
+
+
+## Lizenz
+
+[![CC by-nc-sa](docs/by-nc-sa.eu.png)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+
+(CC) by-nc-sa Stefan Schlott
+
+Projekt verfügbar unter: https://github.com/Skyr/fiber-wristband
+
+![](docs/project-qrcode.png)
