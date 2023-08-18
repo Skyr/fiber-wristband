@@ -9,9 +9,9 @@ Ein Bastelprojekt ohne Löten, mit klein(er)en Kindern durchführbar (kein Löte
 ## Material
 
 * Knopfzelle CR2032
-* Farbwechselnde RGB-LED "slow flashing" für ~ 3 V
+* Farbwechselnde RGB-LED "slow flashing" für ~ 3 V (wer's wilder will, kann alternativ "fast flashing" suchen)
 * 3d-gedrucktes Gehäuse
-* Glasfaser 6 mm (im Modell mit der Variable `fiber_diam` adaptierbar)
+* Glasfaser 6 mm (im Modell mit der Variable `fiber_diam` adaptierbar). Suchschlagworte: "fiber 6mm side glowing"
 
 ## 3d-Druck
 
